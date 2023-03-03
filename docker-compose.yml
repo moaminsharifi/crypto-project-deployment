@@ -1,0 +1,51 @@
+version: '3.8'
+networks:
+  internal_network:
+    name: 'crypto-project-network'
+    
+volumes:
+  postgres-data:
+
+services:
+
+  crypto-project-nest:
+    build:
+      context: ./crypto-project-nest/
+      dockerfile: Dockerfile
+      target: dev
+    container_name: "crypto-project-nest"
+    volumes:
+      - ./crypto-project-nest:/app
+    ports:
+      - ${EXPOSED_BACKEND_PORT}:${INTERNAL_BACKEND_PORT}
+    networks:
+      - internal_network
+    env_file:
+      - ./crypto-project-nest/.env
+    depends_on:
+      - crypto-project-db
+    command: sh -c "npm run serve:dev"
+
+  crypto-project-angular:
+    build: ./crypto-project-angular/_docker/${ENVIRONMENT}
+    container_name: "crypto-project-angular"
+    volumes:
+      - ./crypto-project-angular:/app
+    networks:
+      - internal_network
+    ports:
+      - ${EXPOSED_FRONTEND_PORT}:${INTERNAL_FRONTEND_PORT}
+
+  crypto-project-db:
+    image: postgres:15.2-alpine
+    container_name: "crypto-project-db"
+    restart: always
+    ports:
+      - "5432:5432"
+    networks:
+      - internal_network
+    environment:
+        - POSTGRES_USER=root
+        - POSTGRES_PASSWORD=toor
+        - POSTGRES_DB=currency_manager
+

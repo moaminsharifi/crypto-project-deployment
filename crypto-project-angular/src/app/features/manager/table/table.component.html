@@ -1,0 +1,48 @@
+<p-table
+  *ngIf="isFetched && currencies.length !== 0"
+  [value]="currencies"
+  [tableStyle]="{ 'min-width': '60rem' }"
+  class="pt-3"
+>
+  <ng-template pTemplate="header" let-columns>
+    <tr>
+      <th class="text-left">#</th>
+      <th class="text-center">Name</th>
+      <th class="text-center">Price</th>
+      <th class="text-center">Email</th>
+      <th class="text-center">Description</th>
+      <th class="text-center">Last Trade</th>
+      <th class="text-center">Action</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-currency let-columns="columns">
+    <tr>
+      <td>{{ currency.id }}</td>
+      <td class="text-center">{{ currency.name | uppercase }}</td>
+      <td class="text-center">{{ currency.price }}</td>
+      <td class="text-center">{{ currency.email }}</td>
+      <td class="text-center">
+        {{
+          currency.description.length === 0
+            ? "-"
+            : currency.description.length > 8
+            ? (currency.description | slice : 0 : 8) + "..."
+            : currency.description
+        }}
+      </td>
+      <td class="text-center">{{ currency.trade_at | date : "medium" }}</td>
+      <td class="text-center">
+        <i
+          (click)="currencyDeleteHandler(currency.id)"
+          class="pi pi-trash cursor-pointer"
+        ></i>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+
+<app-loading-skeleton [visibility]="!isFetched"></app-loading-skeleton>
+
+<app-nothing-to-show
+  [visibility]="isFetched && currencies.length === 0"
+></app-nothing-to-show>

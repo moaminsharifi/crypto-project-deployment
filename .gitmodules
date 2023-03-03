@@ -1,0 +1,6 @@
+[submodule "crypto-project-angular"]
+	path = crypto-project-angular
+	url = git@github.com:kiarashatri/crypto-project-angular.git
+[submodule "crypto-project-nest"]
+	path = crypto-project-nest
+	url = git@github.com:kiarashatri/crypto-project-nest.git

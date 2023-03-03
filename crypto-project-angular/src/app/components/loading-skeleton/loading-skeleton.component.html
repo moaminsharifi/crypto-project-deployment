@@ -1,0 +1,15 @@
+<!-- Skeleton for Small Views -->
+<p-skeleton
+  *ngIf="visibility"
+  width="100%"
+  height="15rem"
+  class="sm:hidden"
+></p-skeleton>
+
+<!-- Skeleton for large Views -->
+<p-skeleton
+  class="hidden sm:block"
+  *ngIf="visibility"
+  width="60rem"
+  height="15rem"
+></p-skeleton>

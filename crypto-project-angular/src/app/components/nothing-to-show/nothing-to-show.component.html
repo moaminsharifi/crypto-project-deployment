@@ -1,0 +1,14 @@
+<!-- Nothing to show comp -->
+<div class="min-w-full" *ngIf="visibility">
+  <span class="flex justify-content-center w-full mt-5">
+    <i
+      class="pi pi-exclamation-circle"
+      [ngStyle]="{ color: 'var(--bluegray-200)' }"
+      style="font-size: 10rem"
+    ></i>
+  </span>
+
+  <h3 [ngStyle]="{ color: 'var(--bluegray-400)' }" class="text-center">
+    Nothing To Show
+  </h3>
+</div>

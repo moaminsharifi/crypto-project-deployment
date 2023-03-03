@@ -1,0 +1,70 @@
+<p-dialog
+  [styleClass]="'w-screen sm:w-auto'"
+  header="Add New Currency"
+  [modal]="true"
+  [dismissableMask]="true"
+  [(visible)]="addCurrencyModalVisibility"
+>
+  <form class="pt-5">
+    <div class="flex gap-3">
+      <span class="p-float-label">
+        <input
+          [disabled]="isLoadingRequest"
+          [(ngModel)]="currencyName"
+          [ngModelOptions]="{ standalone: true }"
+          id="float-input"
+          class="ng-invalid ng-dirty"
+          [class.ng-invalid]="nameFieldError"
+          [class.ng-dirty]="nameFieldError"
+          type="text"
+          pInputText
+        />
+        <label for="float-input">Currency Name</label>
+      </span>
+      <span class="p-float-label">
+        <input
+          [disabled]="isLoadingRequest"
+          [class.ng-invalid]="emailFieldError"
+          [class.ng-dirty]="emailFieldError"
+          [(ngModel)]="email"
+          [ngModelOptions]="{ standalone: true }"
+          id="float-input-email"
+          type="text"
+          pInputText
+        />
+        <label for="float-input-email">Email</label>
+      </span>
+    </div>
+    <span class="p-float-label mt-5">
+      <textarea
+        [(ngModel)]="description"
+        [ngModelOptions]="{ standalone: true }"
+        [disabled]="isLoadingRequest"
+        id="float-input"
+        class="w-full mb-2"
+        rows="5"
+        pInputTextarea
+        [autoResize]="false"
+      ></textarea>
+      <label for="float-input">Summary</label>
+    </span>
+    <small
+      *ngFor="let error of inputErrorMessages"
+      class="p-error block pl-2 pt-2"
+      >{{ error }}</small
+    >
+  </form>
+  <span class="flex justify-content-end">
+    <p-button
+      type="button"
+      (click)="submitFormHandler()"
+      [label]="isLoadingRequest ? 'Loading' : 'ADD'"
+      [disabled]="isLoadingRequest"
+    ></p-button
+  ></span>
+</p-dialog>
+
+<p-speedDial
+  (click)="addCurrencyBtnHandler()"
+  className="speedDialPos p-button-sm"
+></p-speedDial>
